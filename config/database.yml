@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: <%= ENV['DATABASE_URL'] %>
+
+development:
+  <<: *default
+  # O Rails usará o DATABASE_URL para conectar, não precisa especificar database, username, etc.
+  # A url será usada para determinar todas essas configurações.
+
+test:
+  <<: *default
+  # Para o ambiente de teste, você pode usar o DATABASE_URL ou configurar diretamente o banco de teste.
+  database: todo_list_khan_test
+
+production:
+  <<: *default
+  # Aqui também será usado o DATABASE_URL definido no ambiente de produção.
+  # A senha e o nome de usuário também serão retirados da DATABASE_URL.
+  username: todo_list_khan
+  password: <%= ENV["TODO_LIST_KHAN_DATABASE_PASSWORD"] %>
